@@ -2,6 +2,55 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v1.0.3] - 2026-04-02
+
+### Features
+
+- Add `--jq` flag for filtering JSON output (#211)
+- Add `+download` shortcut for minutes media download (#101)
+- Add drive import, export, move, and task result shortcuts (#194)
+- Support im message send/reply with uat (#180)
+- Add approve domain (#217)
+
+### Bug Fixes
+
+- **mail**: Use in-memory keyring in mail scope tests to avoid macOS keychain popups (#212)
+- **mail**: On-demand scope checks and watch event filtering (#198)
+- Use curl for binary download to support proxy and add npmmirror fallback (#226)
+- Normalize escaped sheet range separators (#207)
+
+### Documentation
+
+- **mail**: Clarify JSON output is directly usable without extra encoding (#228)
+- Clarify docs search query usage (#221)
+
+### CI
+
+- Add gitleaks scanning workflow and custom rules (#142)
+
+## [v1.0.2] - 2026-04-01
+
+### Features
+
+- Improve OS keychain/DPAPI access error handling for sandbox environments (#173)
+- **mail**: Auto-resolve local image paths in draft body HTML (#139)
+
+### Bug Fixes
+
+- Correct URL formatting in login `--no-wait` output (#169)
+
+### Documentation
+
+- Add concise AGENTS development guide (#178)
+
+### CI
+
+- Refine PR business area labels and introduce skill format check (#148)
+
+### Chore
+
+- Add pull request template (#176)
+
 ## [v1.0.1] - 2026-03-31
 
 ### Features
@@ -87,5 +136,7 @@ Bundled AI agent skills for intelligent assistance:
 - Bilingual documentation (English & Chinese).
 - CI/CD pipelines: linting, testing, coverage reporting, and automated releases.
 
+[v1.0.3]: https://github.com/larksuite/cli/releases/tag/v1.0.3
+[v1.0.2]: https://github.com/larksuite/cli/releases/tag/v1.0.2
 [v1.0.1]: https://github.com/larksuite/cli/releases/tag/v1.0.1
 [v1.0.0]: https://github.com/larksuite/cli/releases/tag/v1.0.0
