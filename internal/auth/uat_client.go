@@ -65,6 +65,10 @@ var refreshLocks sync.Map
 
 // GetValidAccessToken obtains a valid access token for the given user.
 func GetValidAccessToken(httpClient *http.Client, opts UATCallOptions) (string, error) {
+	// env var takes priority, completely bypasses keychain
+	if envToken := os.Getenv("LARK_ACCESS_TOKEN"); envToken != "" {
+		return envToken, nil
+	}
 	stored := GetStoredToken(opts.AppId, opts.UserOpenId)
 	if stored == nil {
 		return "", &NeedAuthorizationError{UserOpenId: opts.UserOpenId}

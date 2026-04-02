@@ -74,6 +74,19 @@ func GetConfigPath() string {
 	return filepath.Join(GetConfigDir(), "config.json")
 }
 
+// configFromEnv returns a minimal CliConfig when LARK_ACCESS_TOKEN is set,
+// bypassing config file and keychain entirely.
+func configFromEnv() *CliConfig {
+	if os.Getenv("LARK_ACCESS_TOKEN") == "" {
+		return nil
+	}
+	brand := LarkBrand(os.Getenv("LARK_BRAND"))
+	if brand == "" {
+		brand = BrandFeishu
+	}
+	return &CliConfig{Brand: brand}
+}
+
 // LoadMultiAppConfig loads multi-app config from disk.
 func LoadMultiAppConfig() (*MultiAppConfig, error) {
 	data, err := os.ReadFile(GetConfigPath())
@@ -106,6 +119,9 @@ func SaveMultiAppConfig(config *MultiAppConfig) error {
 
 // RequireConfig loads the single-app config. Takes Apps[0] directly.
 func RequireConfig(kc keychain.KeychainAccess) (*CliConfig, error) {
+	if cfg := configFromEnv(); cfg != nil {
+		return cfg, nil
+	}
 	raw, err := LoadMultiAppConfig()
 	if err != nil || raw == nil || len(raw.Apps) == 0 {
 		return nil, &ConfigError{Code: 2, Type: "config", Message: "not configured", Hint: "run `lark-cli config init --new` in the background. It blocks and outputs a verification URL — retrieve the URL and open it in a browser to complete setup."}
@@ -134,7 +150,7 @@ func RequireAuth(kc keychain.KeychainAccess) (*CliConfig, error) {
 	if err != nil {
 		return nil, err
 	}
-	if cfg.UserOpenId == "" {
+	if cfg.UserOpenId == "" && os.Getenv("LARK_ACCESS_TOKEN") == "" {
 		return nil, &ConfigError{Code: 3, Type: "auth", Message: "not logged in", Hint: "run `lark-cli auth login` in the background. It blocks and outputs a verification URL — retrieve the URL and open it in a browser to complete login."}
 	}
 	return cfg, nil
