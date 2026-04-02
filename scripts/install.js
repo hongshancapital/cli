@@ -5,7 +5,7 @@ const { execSync } = require("child_process");
 const os = require("os");
 
 const VERSION = require("../package.json").version;
-const REPO = "larksuite/cli";
+const REPO = "hongshancapital/cli";
 const NAME = "lark-cli";
 
 const PLATFORM_MAP = {
