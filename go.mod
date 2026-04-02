@@ -12,9 +12,9 @@ require (
 	github.com/smartystreets/goconvey v1.8.1
 	github.com/spf13/cobra v1.10.2
 	github.com/zalando/go-keyring v0.2.8
-	golang.org/x/net v0.33.0
+	golang.org/x/net v0.38.0
 	golang.org/x/sys v0.33.0
-	golang.org/x/term v0.27.0
+	golang.org/x/term v0.30.0
 	golang.org/x/text v0.23.0
 )
 
